@@ -4,7 +4,9 @@
     "layer": "Unknown",
     "title": "水之波光 · 触境 · 实例档案",
     "outbound_links": [],
-    "inbound_links": [],
+    "inbound_links": [
+      "navigation.md"
+    ],
     "trace_path": [
       "archive.md"
     ],
@@ -16,7 +18,9 @@
     "layer": "Unknown",
     "title": "水之波光 · 触境",
     "outbound_links": [],
-    "inbound_links": [],
+    "inbound_links": [
+      "navigation.md"
+    ],
     "trace_path": [
       "constraints.md"
     ],
@@ -28,7 +32,9 @@
     "layer": "Unknown",
     "title": "水之波光 · 触境",
     "outbound_links": [],
-    "inbound_links": [],
+    "inbound_links": [
+      "navigation.md"
+    ],
     "trace_path": [
       "derivation.md"
     ],
@@ -137,11 +143,31 @@
     "cited_by": []
   },
   {
+    "path": "navigation.md",
+    "layer": "Unknown",
+    "title": "导航中枢 · Navigation",
+    "outbound_links": [
+      "philosophy.md",
+      "constraints.md",
+      "derivation.md",
+      "archive.md",
+      "system-summary.md"
+    ],
+    "inbound_links": [],
+    "trace_path": [
+      "navigation.md"
+    ],
+    "related_nodes": [],
+    "cited_by": []
+  },
+  {
     "path": "philosophy.md",
     "layer": "Unknown",
     "title": "水之波光 · 触境",
     "outbound_links": [],
-    "inbound_links": [],
+    "inbound_links": [
+      "navigation.md"
+    ],
     "trace_path": [
       "philosophy.md"
     ],
@@ -153,7 +179,9 @@
     "layer": "Unknown",
     "title": "水之波光 · 触境 · 体系总纲",
     "outbound_links": [],
-    "inbound_links": [],
+    "inbound_links": [
+      "navigation.md"
+    ],
     "trace_path": [
       "system-summary.md"
     ],
