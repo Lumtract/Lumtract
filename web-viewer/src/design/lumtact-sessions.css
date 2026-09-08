@@ -1,0 +1,183 @@
+/* ============================================================
+   水之波光 · 触境 — 会话组件（lumtact-sessions.css）
+   域：会话/经历索引（DSH 骨架：会话列表 = 持久事实的索引，
+   点击即恢复进度）。唯一令牌定义处：lumtact-tokens.css。
+   本文件只 var() 引用，不定义任何令牌（卷三 3.5.4）。
+   [来源] 初版自 Cellrix web/assets/session.html + components.html
+   沉淀（2026-09-09，ADR-0015 D14），前缀统一 lumtact-ses-。
+   ============================================================ */
+
+/* ── 列表容器 ────────────────────────────────────────────
+   侧栏滚动区；flex 列布局让 head 与 item 自然堆叠 */
+.lumtact-ses {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 480px;
+  overflow-y: auto;
+  padding-right: 12px;
+}
+
+/* ── 列表头：计数 + 主动作（如"新对话"） ──────────────── */
+.lumtact-ses__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 2px 2px 6px;
+  font-size: 11px;
+  color: var(--text-3);
+}
+
+/* ── 会话项 ──────────────────────────────────────────────
+   [PHYS:P-010] 热区 ≥ 44px · [PHYS:C-001] 预测一致：
+   每项同一结构（nm / meta / preview），切换会话零预测误差 */
+.lumtact-ses__item {
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-size: 12px;
+  background: var(--bg-surface);
+  transition: border-color var(--dur-state) var(--ease-out),
+    background var(--dur-state) var(--ease-out);
+}
+.lumtact-ses__item:hover {
+  border-color: var(--brand);
+  background: var(--card-hover);
+}
+.lumtact-ses__item[aria-selected='true'] {
+  border-color: var(--brand);
+  background: var(--row-sel);
+}
+/* [L-001] 层级不能只靠颜色 → 选中加左侧竖条 */
+.lumtact-ses__item[aria-selected='true'] {
+  box-shadow: inset 2px 0 0 var(--brand);
+}
+
+/* ── 主标题（名字 > 预览 > 自动名） ───────────────────── */
+.lumtact-ses__nm {
+  color: var(--text-1);
+  font-weight: 600;
+  word-break: break-all;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-bottom: 2px;
+}
+
+/* ── 元信息行：时间 · 事件数 · 短 id + 操作 ───────────── */
+.lumtact-ses__meta {
+  color: var(--text-3);
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+/* 操作区（如 ✎ 重命名）：hover / 选中才显现 [PHYS:C-002 显著性退级] */
+.lumtact-ses__act {
+  margin-left: auto;
+  display: none;
+  gap: 4px;
+}
+.lumtact-ses__item:hover .lumtact-ses__act,
+.lumtact-ses__item[aria-selected='true'] .lumtact-ses__act {
+  display: flex;
+}
+
+/* ── 预览行（有名字时作正文，避免与主标题重复） ───────── */
+.lumtact-ses__preview {
+  margin-top: 3px;
+  color: var(--text-2);
+  word-break: break-all;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ── 内联重命名编辑态：主标题行换输入框 ───────────────── */
+.lumtact-ses__edit {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+.lumtact-ses__edit .lumtact-inp {
+  min-width: 0;
+  flex: 1;
+  padding: 6px 10px;
+  font-size: 12px;
+}
+
+/* ── 图标按钮（44px 热区 / sm 34px） [PHYS:P-010] ─────── */
+.lumtact-btn-icon {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--text-3);
+  cursor: pointer;
+  font-size: 14px;
+}
+.lumtact-btn-icon:hover {
+  border-color: var(--brand);
+  color: var(--brand);
+}
+.lumtact-btn-icon--sm {
+  width: 34px;
+  height: 34px;
+  min-width: 34px;
+  font-size: 12px;
+}
+
+/* ── 骨架屏：脉冲明暗 = "进行中"的确定性信号 [PHYS:C-003] ── */
+.lumtact-sk {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 10px 12px;
+  background: var(--bg-surface);
+  animation: lumtact-sk-pulse 1.2s ease-in-out infinite alternate;
+}
+.lumtact-sk__l1 {
+  height: 10px;
+  width: 45%;
+  border-radius: 3px;
+  background: var(--line);
+  opacity: 0.6;
+}
+.lumtact-sk__l2 {
+  height: 10px;
+  width: 80%;
+  border-radius: 3px;
+  background: var(--line);
+  opacity: 0.35;
+  margin-top: 8px;
+}
+@keyframes lumtact-sk-pulse {
+  from { opacity: 0.55; }
+  to { opacity: 1; }
+}
+
+/* ── 降级：reduced-motion 时骨架不空转（静止=已完成？不，
+   骨架屏是等待可视化，可降速不可停止） [PHYS:C-003] ───── */
+@media (prefers-reduced-motion: reduce) {
+  .lumtact-sk {
+    animation-duration: 2.4s;
+  }
+}
+
+/* ── 降级：高对比时边界承担层级 ────────────────────────── */
+@media (prefers-contrast: more) {
+  .lumtact-ses__item,
+  .lumtact-btn-icon {
+    border-width: 2px;
+  }
+}
