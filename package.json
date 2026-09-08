@@ -1,0 +1,16 @@
+{
+  "name": "lumtract",
+  "private": true,
+  "description": "Lumtract · 设计推导法的审计机器（monorepo 根）",
+  "scripts": {
+    "build": "npm run build --prefix web-viewer",
+    "storybook": "npm run storybook --prefix web-viewer",
+    "verify": "node web-viewer/scripts/lumtact-verify.mjs",
+    "test": "npm run test --prefix web-viewer"
+  },
+  "comments": {
+    "为什么需要它": "根目录没有 package.json，在根跑 npm run build 会 ENOENT。",
+    "这不是补丁": "把『必须 cd』这个隐含前提变成显式约束，让错误在结构上不可能发生。",
+    "对应约束": "C-001 预测加工 —— 一致性不是美学选择，是认知能耗最小化的物理必然"
+  }
+}

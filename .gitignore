@@ -20,7 +20,7 @@ out/
 
 # Node / NPM
 node_modules/
-package-lock.json
+# package-lock.json
 npm-debug.log*
 .next/
 out/

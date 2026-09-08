@@ -19,20 +19,21 @@
     "remark-gfm": "^4.0.1"
   },
   "devDependencies": {
+    "@storybook/addon-a11y": "^10.5.3",
+    "@storybook/addon-docs": "^10.5.3",
+    "@storybook/addon-onboarding": "^10.5.3",
+    "@storybook/nextjs": "^10.5.3",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.2.11",
+    "eslint-plugin-storybook": "^10.5.3",
+    "storybook": "^10.5.3",
     "tailwindcss": "^4",
     "typescript": "^5",
-    "storybook": "^10.5.3",
-    "@storybook/nextjs": "^10.5.3",
-    "@storybook/addon-a11y": "^10.5.3",
-    "@storybook/addon-docs": "^10.5.3",
-    "@storybook/addon-onboarding": "^10.5.3",
-    "eslint-plugin-storybook": "^10.5.3"
+    "vitest": "^3.2.7"
   },
   "description": "This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).",
   "main": "index.js",

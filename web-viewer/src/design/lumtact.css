@@ -1,0 +1,384 @@
+/* ============================================================
+   Lumtact · 组件样式
+   依赖 lumtact-tokens.css（令牌不得在此重新定义）
+   ============================================================ */
+
+/* ── iOS 修复五条 [AUD-003] ──────────────────────────────
+   缺一不可：
+   ① touch-action      关双击缩放（保留平移/捏合），顺带消除 300ms 延迟
+   ② font-size 16px    iOS 聚焦缩放阈值
+   ③ tap-highlight     去掉盖住涟漪起始帧的灰闪
+   ④ text-size-adjust  禁止横屏字体膨胀
+   ⑤ overscroll        防橡皮筋连带整页
+*/
+.lumtact-ripple-host,
+.lumtact-btn,
+.lumtact-field__input {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-text-size-adjust: 100%;
+}
+.lumtact-table__scroll {
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ── 波源容器 ─────────────────────────────────────────
+   overflow:hidden —— 波被容器裁切。
+   和「属于容器的东西必须接受容器形状」是同一条规则。
+*/
+.lumtact-ripple-host {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* ── 波纹本体 ────────────────────────────────────────────
+   [PHYS] 反光是镜面反射 → 无彩色（白/波谷暗），非体色蓝
+   [D-003] 无彩色不触发 Pentile 子像素借色彩边
+*/
+.lumtact-wave {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  border: var(--wave-ring, 1.5px) solid var(--wave-refl, #fff);
+  opacity: 0;
+  transform: scale(var(--wave-from, 0.06));
+  will-change: transform, opacity;
+  animation: lumtact-wave-out var(--wave-dur, 520ms) var(--wave-ease, cubic-bezier(.6, 0, 1, 1)) forwards;
+}
+
+@keyframes lumtact-wave-out {
+  0% {
+    transform: scale(var(--wave-from, 0.06));
+    opacity: var(--wave-opacity, 0.22);
+  }
+  70% {
+    opacity: calc(var(--wave-opacity, 0.22) * 0.55);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+
+/* 输入框唤醒波 */
+.lumtact-wave--wake {
+  animation-duration: 900ms;
+}
+
+/* ── 光标呼吸波 ──────────────────────────────────────────
+   [PHYS: P-019] 1400ms = 0.71Hz ≪ 3Hz 光敏安全线
+   [C-003] 聚焦期间不动会暗示「卡住了」，所以必须呼吸
+   失焦即停（组件卸载时移除节点）
+*/
+.lumtact-breath {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  width: 10px;
+  height: 10px;
+  margin: -5px 0 0 -5px;
+  border-radius: 50%;
+  pointer-events: none;
+  border: 1px solid var(--wave-refl, #fff);
+  opacity: 0;
+  animation: lumtact-breath var(--wave-breath, 1400ms) ease-in-out infinite;
+}
+
+@keyframes lumtact-breath {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  45% {
+    opacity: calc(var(--wave-opacity, 0.22) * 0.7);
+  }
+  100% {
+    transform: scale(2.6);
+    opacity: 0;
+  }
+}
+
+/* 击键颤动：不新增波，只让当前这道抖一下 */
+.lumtact-breath.is-pulse {
+  animation:
+    lumtact-breath var(--wave-breath, 1400ms) ease-in-out infinite,
+    lumtact-pulse 180ms var(--ease-out, cubic-bezier(.2, 0, 0, 1));
+}
+
+@keyframes lumtact-pulse {
+  0% { filter: brightness(1); }
+  40% { filter: brightness(1.8); }
+  100% { filter: brightness(1); }
+}
+
+/* ── 按钮 ─────────────────────────────────────────────
+   [PHYS: P-010] 热区 ≥44px。小尺寸用 ::after 撑开，不占布局。
+   这不算降级，是解 —— 密度与生存权同时满足。
+*/
+.lumtact-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2, 8px);
+  font: inherit;
+  font-weight: 500;
+  border: 1px solid transparent;
+  border-radius: var(--radius-md, 8px);
+  cursor: pointer;
+  transition:
+    background-color var(--dur-state, 200ms) var(--ease-out, cubic-bezier(.2, 0, 0, 1)),
+    border-color var(--dur-state, 200ms) var(--ease-out, cubic-bezier(.2, 0, 0, 1)),
+    filter var(--dur-state, 200ms) var(--ease-out, cubic-bezier(.2, 0, 0, 1));
+}
+
+/* 热区撑开：不占布局空间 */
+.lumtact-btn::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  min-width: var(--hit-min, 44px);
+  min-height: var(--hit-min, 44px);
+}
+
+.lumtact-btn--sm { height: 32px; padding: 0 var(--sp-3, 12px); font-size: 13px; }
+.lumtact-btn--md { height: 40px; padding: 0 var(--sp-4, 16px); font-size: 14px; }
+.lumtact-btn--lg { height: 48px; padding: 0 var(--sp-6, 24px); font-size: 16px; }
+.lumtact-btn--full { width: 100%; }
+
+.lumtact-btn--primary {
+  background: var(--brand-fill, #2b8cbe);
+  color: var(--brand-fg, #06131a);
+}
+.lumtact-btn--secondary {
+  background: var(--bg-elevated, #262626);
+  color: var(--text-1, #ededed);
+  border-color: var(--line, #2e2e2e);
+}
+.lumtact-btn--ghost {
+  background: transparent;
+  color: var(--text-1, #ededed);
+  border-color: var(--line, #2e2e2e);
+}
+.lumtact-btn--danger {
+  background: var(--danger-fill, #a81e17);
+  color: var(--danger-fg, #f08a80);
+}
+
+/* hover 仅在真悬停设备上生效 —— 触摸设备不留卡住的 hover */
+@media (hover: hover) {
+  .lumtact-btn:not(:disabled):hover { filter: brightness(1.12); }
+  .lumtact-btn--ghost:not(:disabled):hover { background: var(--card-hover); }
+}
+
+.lumtact-btn:focus-visible {
+  outline: 2px solid var(--brand, #2b8cbe);
+  outline-offset: 2px;
+}
+.lumtact-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+/* T2 降级：不出波，但触碰必须有回应 [公理二]
+   光可以熄，回应不能没有。
+*/
+.lumtact-btn[data-tier='T2']:active,
+.lumtact-btn[data-tier='T3']:active {
+  filter: brightness(1.4);
+}
+
+/* busy：[C-003] 静止暗示完成 = 不确定性 = 焦虑
+   spinner 是 infinite，但它是「系统正在工作」的指示器，
+   不构成闲置能耗 [R-003]
+*/
+.lumtact-spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: lumtact-spin 700ms linear infinite;
+}
+@keyframes lumtact-spin { to { transform: rotate(360deg); } }
+
+.lumtact-btn-wrap { display: inline-block; }
+.lumtact-btn-wrap:has(.lumtact-btn--full) { display: block; width: 100%; }
+
+/* ── 输入框 ─────────────────────────────────────────── */
+.lumtact-field-wrap { display: block; }
+
+.lumtact-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-2);
+  margin-bottom: var(--sp-2, 8px);
+}
+
+.lumtact-field {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--line, #2e2e2e);
+  border-radius: var(--radius-md, 8px);
+  background: var(--bg-surface, #1f1f1f);
+  transition: border-color var(--dur-state, 200ms) var(--ease-out, cubic-bezier(.2, 0, 0, 1));
+}
+
+@media (hover: hover) {
+  .lumtact-field:hover { border-color: var(--line-strong, #3d3d3d); }
+}
+.lumtact-field.is-focused { border-color: var(--brand, #2b8cbe); }
+
+.lumtact-field__input {
+  width: 100%;
+  /* ② iOS 聚焦缩放阈值：小于 16px 会放大整页 */
+  font-size: 16px;
+  line-height: 1.5;
+  padding: 10px var(--sp-3, 12px);
+  background: transparent;
+  color: var(--text-1, #ededed);
+  border: 0;
+  outline: none;
+  font-family: inherit;
+}
+
+.lumtact-hint {
+  margin: var(--sp-2, 8px) 0 0;
+  font-size: 12px;
+  color: var(--text-3, #7a7a7a);
+}
+.lumtact-debug {
+  margin: var(--sp-1, 4px) 0 0;
+  font-size: 11px;
+  font-family: ui-monospace, monospace;
+  color: var(--text-3);
+}
+
+/* ── 表格 ─────────────────────────────────────────────
+   边缘遮蔽 = 圆角之内的 veil
+   [P-014] 闭合性：裁切必须可见
+   [D-001] 昼=阴影(暗) / 夜=微光(亮)，极性由动态范围决定
+*/
+.lumtact-table {
+  position: relative;
+  border: 1px solid var(--line, #2e2e2e);
+  border-radius: var(--radius-md, 8px);
+  background: var(--bg-surface, #1f1f1f);
+  overflow: hidden;
+}
+
+.lumtact-table__scroll { overflow-x: auto; }
+
+/* veil 自带同径圆角 —— 它的轮廓就是那条裁切曲线 */
+.lumtact-table::before,
+.lumtact-table::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: var(--edge-w, 24px);
+  pointer-events: none;
+  z-index: 3;
+  opacity: 0;
+  transition: opacity var(--dur-state, 200ms) var(--ease-out, cubic-bezier(.2, 0, 0, 1));
+}
+.lumtact-table::before {
+  left: 0;
+  border-radius: calc(var(--radius-md, 8px) - 1px) 0 0 calc(var(--radius-md, 8px) - 1px);
+  background: linear-gradient(
+    to right,
+    rgba(var(--edge-veil, 0, 0, 0), var(--edge-a, 0.15)) 0%,
+    rgba(var(--edge-veil, 0, 0, 0), 0) 100%
+  );
+}
+.lumtact-table::after {
+  right: 0;
+  border-radius: 0 calc(var(--radius-md, 8px) - 1px) calc(var(--radius-md, 8px) - 1px) 0;
+  background: linear-gradient(
+    to left,
+    rgba(var(--edge-veil, 0, 0, 0), var(--edge-a, 0.15)) 0%,
+    rgba(var(--edge-veil, 0, 0, 0), 0) 100%
+  );
+}
+.lumtact-table.can-l::before { opacity: 1; }
+.lumtact-table.can-r::after { opacity: 1; }
+
+.lumtact-table__el {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+.lumtact-table__el th {
+  position: sticky;
+  top: 0;
+  background: var(--bg-elevated, #262626);
+  padding: 10px 12px;
+  font-weight: 600;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-2, #a8a8a8);
+  text-align: left;
+  white-space: nowrap;
+}
+.lumtact-table__el td {
+  padding: 12px;
+  border-top: 1px solid var(--line, #2e2e2e);
+  color: var(--text-1, #ededed);
+  white-space: nowrap;
+}
+
+/* 行状态三级 · 层级单调 [L-001]
+   状态互斥由逻辑层裁决（:not([aria-selected])），不叠加 alpha [R-001]
+*/
+.lumtact-table__el tbody tr { background: transparent; }
+.lumtact-table__el tbody tr:nth-child(even):not([aria-selected='true']) {
+  background: var(--row-zebra);
+}
+@media (hover: hover) {
+  .lumtact-table__el tbody tr:not([aria-selected='true']):hover {
+    background: var(--row-hover);
+  }
+}
+.lumtact-table__el tbody tr[aria-selected='true'] {
+  background: var(--row-sel);
+}
+/* [L-001] 层级不能只靠颜色 → selected 加左侧竖条 */
+.lumtact-table__el tbody tr[aria-selected='true'] td:first-child {
+  box-shadow: inset 2px 0 0 var(--brand, #2b8cbe);
+}
+.lumtact-table__el tbody tr:focus-visible {
+  outline: 2px solid var(--brand, #2b8cbe);
+  outline-offset: -2px;
+}
+.lumtact-table__empty {
+  padding: 32px 12px;
+  text-align: center;
+  color: var(--text-3);
+}
+
+/* ── 降级：尊重系统偏好 ─────────────────────────────────
+   [PHYS: P-019][R-005] prefers-reduced-motion 是用户声明的生理需求
+   波可以熄，触碰必须有回应 —— 由 brightness 承载
+*/
+@media (prefers-reduced-motion: reduce) {
+  .lumtact-wave,
+  .lumtact-wave--wake {
+    animation: none !important;
+    opacity: 0 !important;
+  }
+  .lumtact-breath {
+    animation: none !important;
+    opacity: calc(var(--wave-opacity, 0.22) * 0.5) !important;
+    transform: scale(1.4) !important;
+  }
+  .lumtact-spinner {
+    animation-duration: 1.6s; /* 降速而非停止：[C-003] 工作指示器不可静止 */
+  }
+  .lumtact-btn:active { filter: brightness(1.4); }
+}
