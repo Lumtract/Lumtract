@@ -20,6 +20,7 @@ Lumtract 是一个基于 Monorepo 架构的结构化数据可视化平台。它�
 - [三道关卡](#三道关卡)
 - [设计哲学](#设计哲学)
 - [技术栈](#技术栈)
+- [致谢](#-致谢)
 - [License](#license)
 
 ---
@@ -74,6 +75,10 @@ cargo run --release
 ✅ Manifest generated: ../web-viewer/public/dag-manifest.json
 ```
 
+> **注意**：扫描路径基于**当前工作目录**解析——请保持 `cd dag-generator` 状态运行。
+> 等价方式：`cd web-viewer && ../dag-generator/target/release/lumtract-dag`（已编译二进制）。
+> 从仓库根直接运行二进制会报 `Failed to resolve docs root`。
+
 ### 2. 启动前端
 
 ```bash
@@ -114,10 +119,15 @@ Lumtract 本身就是一个知识图谱浏览器。`web-viewer/public/docs/` 目
 | 文档 | 内容 | 卷 |
 |---|---|---|
 | `philosophy.md` | 设计推导法 · 公理系统 | 卷一 |
-| `constraints.md` | 设计推导法 · 约束库 | 卷二 |
-| `derivation.md` | 设计推导法 · 推导引擎 | 卷三 |
+| `constraints.md` | 设计推导法 · 约束库（含 §2.6 平台行为快照） | 卷二 |
+| `constraints-navigation.md` | 导航与流转约束 N-001~N-023（卷二的导航分册） | 卷二 |
+| `derivation.md` | 设计推导法 · 推导引擎（含推翻路径） | 卷三 |
 | `archive.md` | Lumtact 实例档案 | 卷四 |
+| `navigation.md` | 导航索引：N-系列汇总 + 组件映射 + 负债 | 索引 |
 | `system-summary.md` | 体系总纲 | — |
+| `adrs/` | 架构决策记录 ADR-0000~0008（管辖边界 / 修订 / 分级 / 固化 / 推翻路径 / 辉光语义） | 决策记录 |
+| `engineering-guide/` | 工程指引（导航基线等，[ENG] 陶土输入材料） | 指引 |
+| `research-notes-navigation-constraints.md` | N-系列证据登记与覆盖矩阵 | 证据 |
 
 这些文档可通过 http://localhost:3000 直接阅读，文档内部的 Markdown 链接会在应用内平滑导航，无需刷新页面。
 
@@ -137,6 +147,7 @@ Lumtract 本身就是一个知识图谱浏览器。`web-viewer/public/docs/` 目
 - **知识从上往下流**：哲学 → 约束 → 引擎 → 实例
 - **质疑从下往上流**：实例发现问题 → 质疑约束或引擎 → 通过版本迭代修正
 - **实例永远不能反向修改公理**
+- **修订走 ADR**：约束与流程的每一次语义变更都记录在 `adrs/`（ADR-0000~0008）；版本冻结后不原地修改，旧版保留为历史
 
 ---
 
@@ -163,6 +174,7 @@ Lumtract 本身就是一个知识图谱浏览器。`web-viewer/public/docs/` 目
 | `LumtactRipple.tsx` | 波纹引擎。果从因的位置长出 |
 | `useTier.ts` | 降级档位探测（帧率、reduced-motion、pointer） |
 | `lumtact-tokens.css` | **令牌单一事实源** |
+| `tokens.ts`（`src/design/tokens.ts`） | 令牌类型与默认值——每个值带 `source / constraints / why / hardness` 标注 |
 | `contrast.ts` / `css-scan.ts` | 颜色与 CSS 结构化解析工具 |
 
 ### IP 规则：果，从因的那个位置长出
@@ -185,8 +197,8 @@ Lumtract 本身就是一个知识图谱浏览器。`web-viewer/public/docs/` 目
 
 | 关卡 | 命令 | 查什么 |
 |---|---|---|
-| **① 约束校验** | `node scripts/lumtract-verify.mjs` | 设计值有没有违反钻石约束（25 项） |
-| **② 契约测试** | `npx vitest run` | 令牌契约、层级单调、零硬编码、导出一致性 |
+| **① 约束校验** | `node scripts/lumtract-verify.mjs` | 设计值有没有违反钻石约束（123 项：钻石/钢铁 114 + 工程阈值 9） |
+| **② 契约测试** | `npx vitest run`（根目录：`npm run test`） | 令牌契约、层级单调、零硬编码、导出一致性 |
 | **③ 类型检查** | `npm run build` | 类型是否闭合（**唯一不可替代**） |
 
 ### 为什么三道都要
@@ -201,11 +213,11 @@ Lumtract 本身就是一个知识图谱浏览器。`web-viewer/public/docs/` 目
 
 **校验规则自己也要有来源标注。** 卷三说「无标注 = 推导无效」——一条没有硬度标注的校验规则，无法被审计、无法被质疑、无法被修正，和被它校验的设计值一样。
 
-25 项分两级，失败时的处理不同：
+123 项分两级，失败时的处理不同：
 
 | 标记 | 硬度 | 项数 | 失败时 |
 |---|---|---|---|
-| ◆ | 钻石 / 钢铁 | **16** | 阻断（退出码 1） |
+| ◆ | 钻石 / 钢铁 | **114** | 阻断（退出码 1） |
 | ○ | 工程阈值 | **9** | 仅警告（退出码 0） |
 
 那 9 项工程阈值是**为了达到钻石约束而选的手段**，不是约束本身：
@@ -241,7 +253,7 @@ Lumtract 本身就是一个知识图谱浏览器。`web-viewer/public/docs/` 目
 1. 目的档案完成真实用户访谈，`[PURPOSE]` 不再是临时值
 2. 组件覆盖主要交互场景，实例开始产生质疑
 3. 至少一轮阈值修订，且每次修订都记录了依据
-4. 此时再加 hook，且**只阻断那 16 项钻石/钢铁**
+4. 此时再加 hook，且**只阻断那 114 项钻石/钢铁**
 
 在此之前，`verify.mjs` 保持「可看、可参考、不阻断陶土」的状态。它输出末尾会明确提示：
 
@@ -258,7 +270,7 @@ cd web-viewer
 node scripts/lumtract-verify.mjs
 ```
 
-零依赖，直接输出 25 项，逐条列出实测值 / 要求 / 约束 ID：
+零依赖，直接输出 123 项，逐条列出实测值 / 要求 / 约束 ID：
 
 ```
   对比度
@@ -270,7 +282,7 @@ node scripts/lumtract-verify.mjs
   层级单调
     ✓ 夜 zebra→hover  3.32 ΔL* 需 > 1.5 ΔL* [L-001]
 
-  全部通过：25 / 25
+  全部通过：123 / 123
 ```
 
 > 这些测试做过变异验证：故意注入违规（热区改 32px、呼吸改 200ms、hover 低于斑马纹），全部被抓到。
@@ -284,7 +296,7 @@ Lumtact 的每一个形态都不是被选择的，而是约束空间被诚实挤
 
 **任何输出的设计值必须携带来源标注**——`[PHYS]` 物理/生理约束、`[ENG]` 工程约定、`[GENE]` 项目基因、`[PURPOSE]` 目的裁决。无标注 = 推导无效。
 
-**方法 vs 皮肤**：本仓库有两种东西——**方法**（Lumtract Method，无色、无风格）与**皮肤**（显式标注 `[GENE]` 的 demo）。方法论只输出硬边界（philosophy / constraints），不承诺任何视觉风格；以下「有机形态」「深海发光」是**皮肤**——一个演示用的项目基因，不是水之波光的本质。任何把特定形态（暗色、圆角、水蓝、微光）提升为"水之波光本质"的表述，都违反哲学附录 v1.1（[philosophy.md](web-viewer/public/docs/philosophy.md)）。
+**方法 vs 皮肤**：本仓库有两种东西——**方法**（Lumtact Method，无色、无风格：卷一 philosophy → 卷二 constraints（含导航分册）→ 卷三 derivation → 卷四 archive）与**皮肤**（显式标注 `[GENE]` 的 demo）。方法论只输出硬边界与推导协议，不承诺任何视觉风格；以下「有机形态」「深海发光」是**皮肤**——一个演示用的项目基因，不是水之波光的本质。任何把特定形态（暗色、圆角、水蓝、微光）提升为"水之波光本质"的表述，都违反哲学附录 v1.1（[philosophy.md](web-viewer/public/docs/philosophy.md)）。
 
 ### 皮肤 [GENE] demo · 有机形态
 
