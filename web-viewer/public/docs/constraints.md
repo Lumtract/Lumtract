@@ -2,7 +2,7 @@
 
 ## The Water's Gleam · Tactile Realm
 
-### 设计推导法・卷二：约束库 v10.2.0
+### 设计推导法・卷二：约束库 v10.3.0
 
 **性质**：知识库。随认知科学和显示技术的边界而演进。不输出设计值，只输出硬边界。
 
@@ -192,6 +192,10 @@
 | State Restoration opt-in（shouldSave / shouldRestoreApplicationState） | iOS 现行 | [N-012](constraints-navigation.md#n-012) | 年度 |
 | Universal Links / URL Schemes 深链 | iOS 现行 | [N-011](constraints-navigation.md#n-011) | 年度 |
 | Material 3 底部导航 3–5 / Navigation Rail 3–7 / 抽屉 ≥5 | M3 | [N-008](constraints-navigation.md#n-008) | 年度 |
+| 小程序页面栈上限 10 层（navigateTo 超出即失败 page limit exceeded） | 微信 / 支付宝小程序现行基础库 | [N-001](constraints-navigation.md#n-001) · [N-005](constraints-navigation.md#n-005) | 年度 |
+| 系统返回 / 预测性返回（OnBackInvokedCallback，手势返回动画） | Android 13 (API 33) 引入、Android 14+ 默认启用 | [N-005](constraints-navigation.md#n-005) | 年度 |
+| App Links 深链（autoVerify 声明） | Android 6.0 (API 23)+ | [N-011](constraints-navigation.md#n-011) | 年度 |
+| Web 浏览器历史栈（History API / popstate，前进后退按钮） | 现行 Web 标准（WHATWG HTML） | [N-005](constraints-navigation.md#n-005) | 年度 |
 
 ---
 
@@ -201,6 +205,7 @@
 
 | 版本      | 日期         | 变更说明                                                                                                                                                                                                                               |
 | ------- | ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| v10.3.0 | 2026-09-15 | 依 ADR-0003：① §2.6 平台行为快照扩展——小程序页面栈上限 10 层（中文生态独有平台硬行为）、Android 预测性返回（13+ 引入 / 14+ 默认）、Android App Links（6.0+）、Web 历史栈（History API）；② N-系列硬度裁决修订（N-020/N-022 降纯 [ENG] 陶土、N-021 补 P-021 锚、N-010/014/015 补锚进映射表）详见分册修订记录；③ 校验器新增硬度-来源一致性断言（硬度含钻石 → 来源须含 [派生自]/[新原语]）。v10.2.0 保留为历史，不作废。 |
 | v10.2.0 | 2026-09-15 | 依 ADR-0002：① §2.4 导航约束（N-001\~N-023）拆分至独立分册 [constraints-navigation.md](constraints-navigation.md)（本文件逼近 400 行解耦阈值）；② 新增 §2.6 平台行为快照（带版本锚点、年度复审）；③ 平台机制不再视为钢铁，钢铁回归硅基物理边界（渲染管线 / 显示面板 / 能耗定律）；④ N-系列硬度与来源类型修订（N-002 摘 P-020、N-020\~23 双标注、N-010/N-014 补锚、N-015 undo 5s 标 [ENG]、AAA 降级）详见分册修订记录。v10.1.0 保留为历史，不作废。 |
 | v10.0.0 | 2026-07-23 | 初始版本。建立硅基与碳基硬边界。                                                                                                                                                                                                                   |
 | v10.0.1 | 2026-07-23 | 修正 R-001 Alpha 合成表述，澄清线性 vs sRGB 颜色空间。修正 P-020 增加来源标注和数值说明。修正 P-012 "25%" 模糊表述为明确比例。修正 L-002 "覆盖" 歧义为 "合法优先"。细化切断点表述，增加项目上下文决策说明。                                                                                                  |

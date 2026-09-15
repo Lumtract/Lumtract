@@ -203,12 +203,12 @@
 | [N-017](constraints-navigation.md#n-017) | 站内导航一致性             | 钻石 + 陶土   | 站内一致 > 跨站惯例             |
 | [N-018](constraints-navigation.md#n-018) | 标签语义一致（信息气味）        | 钻石        | 模糊标签 = 低气味，禁止 "点击这里"    |
 | [N-019](constraints-navigation.md#n-019) | 同功能不同入口行为一致         | 钻石        | WCAG 3.2.4 AA           |
-| [N-020](constraints-navigation.md#n-020) | 绕过重复导航块             | 钻石（生理）+ 陶土（WCAG A）    | WCAG 2.4.1，"跳到主内容" 链接   |
-| [N-021](constraints-navigation.md#n-021) | 焦点顺序保留意义            | 钻石（生理）+ 陶土（WCAG A/AA） | WCAG 2.4.3 + 2.4.11     |
-| [N-022](constraints-navigation.md#n-022) | 多种定位页面方式            | 钻石（生理）+ 陶土（WCAG AA）   | WCAG 2.4.5，搜索 + 站点地图    |
-| [N-023](constraints-navigation.md#n-023) | 拖拽手势须有非拖拽替代         | 钻石（生理）+ 陶土（WCAG AA）   | WCAG 2.5.7，按钮替代滑动       |
+| [N-020](constraints-navigation.md#n-020) | 绕过重复导航块             | 陶土（WCAG A 合规）    | WCAG 2.4.1，"跳到主内容" 链接   |
+| [N-021](constraints-navigation.md#n-021) | 焦点顺序保留意义            | 钻石（P-021）+ 陶土（WCAG A/AA） | WCAG 2.4.3 + 2.4.11     |
+| [N-022](constraints-navigation.md#n-022) | 多种定位页面方式            | 陶土（WCAG AA 合规）   | WCAG 2.4.5，搜索 + 站点地图    |
+| [N-023](constraints-navigation.md#n-023) | 拖拽手势须有非拖拽替代         | 钻石（P-010/P-011）+ 陶土（WCAG AA）   | WCAG 2.5.7，按钮替代滑动       |
 
-> N - 系列约束的引入依据 [ADR-0001](adrs/ADR-0001-navigation-constraints.md)（已 Superseded）；v10.2.0 硬度与来源修订依据 [ADR-0002](adrs/ADR-0002-revise-navigation-constraints.md)。外部来源索引见 constraints-navigation.md §2.4.10。
+> N - 系列约束的引入依据 [ADR-0001](adrs/ADR-0001-navigation-constraints.md)（已 Superseded）；v10.2.0 硬度与来源修订依据 [ADR-0002](adrs/ADR-0002-revise-navigation-constraints.md)；v10.3.0 硬度-来源一致性修订依据 [ADR-0003](adrs/ADR-0003-hardness-source-consistency.md)。外部来源索引见 constraints-navigation.md §2.4.10。
 
 
 
@@ -246,4 +246,4 @@
 
 ***
 
-`[ALIGN: Lumtact · 水之波光 · 触境] @ v10.2.0`
+`[ALIGN: Lumtact · 水之波光 · 触境] @ v10.3.0`
