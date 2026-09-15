@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 /**
- * Lumtact · 约束校验（不依赖 vitest）
+ * Lumtract · 约束校验（不依赖 vitest）
  * ────────────────────────────────────────────────────────
  * 用途：装好就想立刻知道「设计值有没有违反约束」，
  * 不必先配好测试框架。
  *
  * 用法：
- *   node scripts/lumtact-verify.mjs
+ *   node scripts/lumtract-verify.mjs
  *
  * 【诚实声明】
  * 本文件内联了一份颜色计算，是 src/design/contrast.ts 的镜像。
@@ -228,7 +228,7 @@ const NAME = { diamond: '钻石', steel: '钢铁', clay: '工程阈值' };
 
 const groups = [...new Set(results.map((r) => r.group))];
 
-console.log('\n' + C.b + 'Lumtact · 约束校验' + C.x + C.d + '  v10.2.0' + C.x + '\n');
+console.log('\n' + C.b + 'Lumtract · 约束校验' + C.x + C.d + '  v10.2.0' + C.x + '\n');
 console.log(C.d + '  ◆ 钻石/钢铁 = 不可妥协，失败即阻断' + C.x);
 console.log(C.d + '  ○ 工程阈值 = 可随上下文调整，失败仅警告' + C.x + '\n');
 

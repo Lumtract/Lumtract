@@ -5,7 +5,7 @@
   "scripts": {
     "build": "npm run build --prefix web-viewer",
     "storybook": "npm run storybook --prefix web-viewer",
-    "verify": "node web-viewer/scripts/lumtact-verify.mjs",
+    "verify": "node web-viewer/scripts/lumtract-verify.mjs",
     "test": "npm run test --prefix web-viewer"
   },
   "comments": {
