@@ -379,4 +379,4 @@ Apache 2.0
 
 ---
 
-`[ALIGN: Lumtact · 水之波光 · 触境] @ v10.5.0`
+`[ALIGN: Lumtact · 水之波光 · 触境] @ v10.6.0`

@@ -4,8 +4,8 @@
 
 **绑定声明**：
 - 哲学: `philosophy.md` @ v10.0.0-alpha
-- 约束库: `constraints.md` @ v10.5.0（导航分册 [constraints-navigation.md](constraints-navigation.md) @ v10.4.0）
-- 推导引擎: `derivation.md` @ v10.3.0
+- 约束库: `constraints.md` @ v10.6.0（导航分册 [constraints-navigation.md](constraints-navigation.md) @ v10.4.0）
+- 推导引擎: `derivation.md` @ v10.4.0
 
 ---
 
@@ -206,4 +206,5 @@
 | v1.0.3 | 2026-09-15 | 依 ADR-0003 复审：绑定声明对齐 v10.3.0 约束库（N-020/N-022 降纯 [ENG] 陶土、N-021 补 P-021 锚、校验器硬度-来源一致性规则）；N-系列硬度裁决修订不影响既有实例档案的设计值（均不涉及 N-系列）。目的档案 [PURPOSE] 仍待真实用户访谈验证（状态不变）。 |
 | v1.0.4 | 2026-09-15 | 依 ADR-0004 复审：绑定声明对齐 v10.4.0 约束库 / v10.2.0 推导引擎（N-001/N-004 降陶土、新原语分级、平台固化机制）；实例档案设计值均不涉及 N-系列，不受影响。目的档案 [PURPOSE] 仍待真实用户访谈验证（状态不变）。 |
 | v1.0.5 | 2026-09-15 | 依 ADR-0005 / ADR-0006 复审：绑定声明对齐 v10.5.0 约束库（新增 L-004 辉光语义，派生自 C-002 + P-022）/ v10.3.0 推导引擎（软边界协商并入推翻路径 + Z 量纲）；新增导航基线 [engineering-guide/interaction/navigation-baseline.md](engineering-guide/interaction/navigation-baseline.md)（[ENG] 陶土输入材料）。实例档案设计值均不涉及 N-系列与 L-004，不受影响。目的档案 [PURPOSE] 仍待真实用户访谈验证（状态不变）。 |
+| v1.0.6 | 2026-09-15 | 依 ADR-0007 / ADR-0008 复审：绑定声明对齐 v10.6.0 约束库（L-004 适用域收窄——P-022 锚限网格对齐区域，非网格区域辉光可作地标锚定）/ v10.4.0 推导引擎（固化边界推翻并入分类判定——功能失败型固化不可由推导推翻）。实例档案设计值均不涉及 N-系列与 L-004，不受影响。目的档案 [PURPOSE] 仍待真实用户访谈验证（状态不变）。 |
 
