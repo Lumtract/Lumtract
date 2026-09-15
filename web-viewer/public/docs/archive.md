@@ -4,8 +4,8 @@
 
 **绑定声明**：
 - 哲学: `philosophy.md` @ v10.0.0-alpha
-- 约束库: `constraints.md` @ v10.0.1
-- 推导引擎: `derivation.md` @ v10.0.0
+- 约束库: `constraints.md` @ v10.2.0（导航分册 [constraints-navigation.md](constraints-navigation.md) @ v10.2.0）
+- 推导引擎: `derivation.md` @ v10.1.0
 
 ---
 
@@ -202,4 +202,5 @@
 |---|---|---|
 | v1.0.0 | 2026-07-23 | 初始档案建立。记录背景色、强调色、节点圆角、两起冲突裁决。 |
 | v1.0.1 | 2026-07-23 | 补全背景色推导链细节。补全冲突 B 记录。补全来源标注摘要表。对齐 v10.0.1 约束库。 |
+| v1.0.2 | 2026-09-15 | 依 ADR-0002 行动 #5 复审：绑定声明对齐 v10.2.0 约束库 / v10.1.0 推导引擎；N-系列已拆分至 constraints-navigation.md（@ v10.2.0）；目的档案 [PURPOSE] 仍待真实用户访谈验证（状态不变）。 |
 

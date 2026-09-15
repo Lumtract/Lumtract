@@ -1,9 +1,57 @@
 [
   {
+    "path": "adrs/ADR-0000-governance-boundary.md",
+    "layer": "Unknown",
+    "title": "ADR-0000：phyt-DNA × Lumtract 管辖边界与层次映射",
+    "outbound_links": [],
+    "inbound_links": [],
+    "trace_path": [
+      "adrs/ADR-0000-governance-boundary.md"
+    ],
+    "related_nodes": [],
+    "cited_by": []
+  },
+  {
+    "path": "adrs/ADR-0001-navigation-constraints.md",
+    "layer": "Unknown",
+    "title": "ADR-0001：在约束库中新增 \"导航与流转\" 约束类别（N - 系列）",
+    "outbound_links": [
+      "adrs/ADR-0002-revise-navigation-constraints.md"
+    ],
+    "inbound_links": [
+      "constraints-navigation.md",
+      "navigation.md"
+    ],
+    "trace_path": [
+      "adrs/ADR-0001-navigation-constraints.md"
+    ],
+    "related_nodes": [],
+    "cited_by": []
+  },
+  {
+    "path": "adrs/ADR-0002-revise-navigation-constraints.md",
+    "layer": "Unknown",
+    "title": "ADR-0002：修订 ADR-0001——钢铁定义回撤、锚定表修正与硬度纪律执行",
+    "outbound_links": [],
+    "inbound_links": [
+      "adrs/ADR-0001-navigation-constraints.md",
+      "constraints-navigation.md",
+      "constraints.md",
+      "navigation.md"
+    ],
+    "trace_path": [
+      "adrs/ADR-0002-revise-navigation-constraints.md"
+    ],
+    "related_nodes": [],
+    "cited_by": []
+  },
+  {
     "path": "archive.md",
     "layer": "Unknown",
     "title": "水之波光 · 触境 · 实例档案",
-    "outbound_links": [],
+    "outbound_links": [
+      "constraints-navigation.md"
+    ],
     "inbound_links": [
       "navigation.md"
     ],
@@ -14,10 +62,32 @@
     "cited_by": []
   },
   {
+    "path": "constraints-navigation.md",
+    "layer": "Unknown",
+    "title": "水之波光・触境 — 导航与流转约束（N-系列）",
+    "outbound_links": [
+      "adrs/ADR-0002-revise-navigation-constraints.md",
+      "adrs/ADR-0001-navigation-constraints.md"
+    ],
+    "inbound_links": [
+      "archive.md",
+      "constraints.md",
+      "navigation.md"
+    ],
+    "trace_path": [
+      "constraints-navigation.md"
+    ],
+    "related_nodes": [],
+    "cited_by": []
+  },
+  {
     "path": "constraints.md",
     "layer": "Unknown",
-    "title": "水之波光 · 触境",
-    "outbound_links": [],
+    "title": "水之波光・触境",
+    "outbound_links": [
+      "constraints-navigation.md",
+      "adrs/ADR-0002-revise-navigation-constraints.md"
+    ],
     "inbound_links": [
       "navigation.md"
     ],
@@ -145,13 +215,16 @@
   {
     "path": "navigation.md",
     "layer": "Unknown",
-    "title": "导航中枢 · Navigation",
+    "title": "导航中枢・Navigation",
     "outbound_links": [
       "philosophy.md",
       "constraints.md",
       "derivation.md",
       "archive.md",
-      "system-summary.md"
+      "system-summary.md",
+      "constraints-navigation.md",
+      "adrs/ADR-0001-navigation-constraints.md",
+      "adrs/ADR-0002-revise-navigation-constraints.md"
     ],
     "inbound_links": [],
     "trace_path": [
@@ -170,6 +243,18 @@
     ],
     "trace_path": [
       "philosophy.md"
+    ],
+    "related_nodes": [],
+    "cited_by": []
+  },
+  {
+    "path": "research-notes-navigation-constraints.md",
+    "layer": "Unknown",
+    "title": "导航与流转约束（N-系列）· 研究产出证据登记",
+    "outbound_links": [],
+    "inbound_links": [],
+    "trace_path": [
+      "research-notes-navigation-constraints.md"
     ],
     "related_nodes": [],
     "cited_by": []

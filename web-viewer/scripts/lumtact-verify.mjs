@@ -6,7 +6,7 @@
  * 不必先配好测试框架。
  *
  * 用法：
- *   node scripts/verify.mjs
+ *   node scripts/lumtact-verify.mjs
  *
  * 【诚实声明】
  * 本文件内联了一份颜色计算，是 src/design/contrast.ts 的镜像。
@@ -165,6 +165,60 @@ for (const [label, T] of [['夜', DARK], ['昼', LIGHT]]) {
   check('层级单调', `${label} hover→sel`, sel - h, 1.5, '>', 'L-001', ' ΔL*', 'clay');
 }
 
+/* ── 九 · 导航与流转（N-系列，推导完整性）─────────────────
+ *
+ * 【工具纪律 · ADR-0002 §2.3】
+ * 本组只校验「推导完整性」，不校验 [ENG] 阈值：
+ *   可断言：派生 ID 挂得住、平台行为已登记 §2.6、来源类型非空
+ *   不可断言：顶级导航 ≤5、undo 5s、可发现性 -50%……
+ * 把 [ENG] 陶土写成硬断言 = 用机器把陶土固化成钻石（卷一公理三）。
+ */
+const DOCS = join(__dirname, '..', 'public', 'docs');
+const navDoc = readFileSync(join(DOCS, 'constraints-navigation.md'), 'utf-8');
+const consDoc = readFileSync(join(DOCS, 'constraints.md'), 'utf-8');
+const philDoc = readFileSync(join(DOCS, 'philosophy.md'), 'utf-8');
+const allDocs = navDoc + consDoc + philDoc;
+
+// 既有约束 ID（P/C/L/R/D/N 系列）+ 公理
+const knownIds = new Set([...allDocs.matchAll(/\b(?:P|C|L|R|D|N)-\d{3}\b/g)].map((m) => m[0]));
+for (const ax of allDocs.matchAll(/公理[一二三]/g)) knownIds.add(ax[0]);
+
+// constraints.md §2.6 平台行为快照
+const sec26 = (consDoc.match(/## 2\.6 平台行为快照[\s\S]*?(?=\n## |\n---)/) || [''])[0];
+
+// 来源类型映射表（constraints-navigation.md §2.4.11，校验器输入）
+const mapSec = (navDoc.match(/### 2\.4\.11 来源类型映射表[\s\S]*?(?=\n---|\n## )/) || [''])[0];
+const rowById = new Map([...mapSec.matchAll(/^\| (N-\d{3}) \| ([^|]+) \| ([^|]+) \|$/gm)].map((m) => [m[1], m]));
+const N_ALL = Array.from({ length: 23 }, (_, i) => 'N-' + String(i + 1).padStart(3, '0'));
+
+// 1) 23 条全部登记 + 来源类型非空
+for (const id of N_ALL) {
+  const r = rowById.get(id);
+  check('导航·来源类型', `${id} 已登记`, r ? 1 : 0, 1, '>=', 'N-系列', '', 'diamond');
+  if (r) {
+    const hasTag = /派生自|新原语|平台行为|ENG/.test(r[2]);
+    check('导航·来源类型', `${id} 来源类型非空`, hasTag ? 1 : 0, 1, '>=', 'N-系列', '', 'diamond');
+  }
+}
+
+// 2) 派生自的约束 ID 必须存在（标「派生自」却查不到生理机制 = 冒充）
+for (const [id, r] of rowById) {
+  const d = (r[2].match(/派生自\s*([^\]]+)/) || [])[1] ?? '';
+  const refs = d.match(/(?:P|C|L|R|D|N)-\d{3}|公理[一二三]/g) ?? [];
+  for (const ref of refs) {
+    check('导航·来源类型', `${id} 派生锚 ${ref}`, knownIds.has(ref) ? 1 : 0, 1, '>=', 'N-系列', '', 'diamond');
+  }
+}
+
+// 3) 平台行为必须已在 §2.6 登记（孤儿依赖 = 无版本锚点）
+for (const [id, r] of rowById) {
+  const p = (r[2].match(/平台行为:\s*([^\]]+)/) || [])[1] ?? '';
+  if (!p) continue;
+  const frags = p.split('/').map((f) => f.trim()).filter(Boolean);
+  const ok = frags.some((f) => sec26.includes(f.split('（')[0].trim()));
+  check('导航·来源类型', `${id} 平台登记 §2.6`, ok ? 1 : 0, 1, '>=', 'N-系列', '', 'diamond');
+}
+
 /* ── 输出 ────────────────────────────────────────────── */
 const C = { g: '\x1b[32m', r: '\x1b[31m', y: '\x1b[33m', d: '\x1b[2m', b: '\x1b[1m', x: '\x1b[0m' };
 
@@ -174,7 +228,7 @@ const NAME = { diamond: '钻石', steel: '钢铁', clay: '工程阈值' };
 
 const groups = [...new Set(results.map((r) => r.group))];
 
-console.log('\n' + C.b + 'Lumtact · 约束校验' + C.x + C.d + '  v10.0.0-alpha' + C.x + '\n');
+console.log('\n' + C.b + 'Lumtact · 约束校验' + C.x + C.d + '  v10.2.0' + C.x + '\n');
 console.log(C.d + '  ◆ 钻石/钢铁 = 不可妥协，失败即阻断' + C.x);
 console.log(C.d + '  ○ 工程阈值 = 可随上下文调整，失败仅警告' + C.x + '\n');
 
