@@ -20,8 +20,8 @@ Lumtract 是一个基于 Rust + Next.js 的 DAG（有向无环图）可视化平
 | 内核文档 | 版本 | 说明 |
 |---|---|---|
 | [哲学](docs/philosophy.md) | v10.0.0-alpha | 公理系统，不可变 |
-| [约束库](docs/constraints.md) | v10.3.0 | 硬边界知识库（导航分册 [constraints-navigation.md](docs/constraints-navigation.md) @ v10.3.0） |
-| [推导引擎](docs/derivation.md) | v10.1.0 | 推导协议与方法论 |
+| [约束库](docs/constraints.md) | v10.4.0 | 硬边界知识库（导航分册 [constraints-navigation.md](docs/constraints-navigation.md) @ v10.4.0） |
+| [推导引擎](docs/derivation.md) | v10.2.0 | 推导协议与方法论 |
 | [实例档案](docs/archive.md) | v1.0.1 | Lumtract 完整推导链 |
 
 ---

@@ -184,10 +184,10 @@
 
 | ID                            | 名称                  | 硬度        | 核心边界                    |
 | ----------------------------- | ------------------- | --------- | ----------------------- |
-| [N-001](constraints-navigation.md#n-001) | 扁平层级优先              | 钻石 + 陶土   | 两级优于三级，深度增加认知负载         |
+| [N-001](constraints-navigation.md#n-001) | 扁平层级优先              | 陶土（实证发现）   | 两级优于三级（Encarta 实验，非普适）         |
 | [N-002](constraints-navigation.md#n-002) | 单级选项数约束             | 陶土（P-020 已摘除）    | 顶级导航 ≤5 [ENG]，随机列表 4–8 项 [ENG] |
 | [N-003](constraints-navigation.md#n-003) | 位置感持续线索             | 钻石        | 每界面必须有 "我在哪" 指示         |
-| [N-004](constraints-navigation.md#n-004) | 层级主干优于网络            | 钻石        | 非线性结构增加迷失               |
+| [N-004](constraints-navigation.md#n-004) | 层级主干优于网络            | 陶土（实证发现）        | 单一实验 + 观点文章，非机制边界               |
 | [N-005](constraints-navigation.md#n-005) | 返回始终可用              | 钻石 + 陶土   | 导航栈 LIFO，禁边缘返回需理由       |
 | [N-006](constraints-navigation.md#n-006) | 面包屑显示层级             | 钻石 + 陶土   | 非浏览历史，Web / 桌面约定        |
 | [N-007](constraints-navigation.md#n-007) | 中断恢复需外部线索           | 钻石        | 恢复滞后约 2× 正常间隔           |
@@ -246,4 +246,4 @@
 
 ***
 
-`[ALIGN: Lumtact · 水之波光 · 触境] @ v10.3.0`
+`[ALIGN: Lumtact · 水之波光 · 触境] @ v10.4.0`

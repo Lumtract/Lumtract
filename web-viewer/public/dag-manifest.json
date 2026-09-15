@@ -51,7 +51,9 @@
     "path": "adrs/ADR-0003-hardness-source-consistency.md",
     "layer": "Unknown",
     "title": "ADR-0003：N-系列硬度-来源一致性规则与裁决（修订 ADR-0002 部分条款）",
-    "outbound_links": [],
+    "outbound_links": [
+      "adrs/ADR-0004-new-primitive-grading-platform-binding.md"
+    ],
     "inbound_links": [
       "adrs/ADR-0002-revise-navigation-constraints.md",
       "constraints-navigation.md",
@@ -59,6 +61,21 @@
     ],
     "trace_path": [
       "adrs/ADR-0003-hardness-source-consistency.md"
+    ],
+    "related_nodes": [],
+    "cited_by": []
+  },
+  {
+    "path": "adrs/ADR-0004-new-primitive-grading-platform-binding.md",
+    "layer": "Unknown",
+    "title": "ADR-0004：新原语分级与平台固化规则（修订 ADR-0003 部分条款）",
+    "outbound_links": [],
+    "inbound_links": [
+      "adrs/ADR-0003-hardness-source-consistency.md",
+      "constraints-navigation.md"
+    ],
+    "trace_path": [
+      "adrs/ADR-0004-new-primitive-grading-platform-binding.md"
     ],
     "related_nodes": [],
     "cited_by": []
@@ -84,6 +101,7 @@
     "layer": "Unknown",
     "title": "水之波光・触境 — 导航与流转约束（N-系列）",
     "outbound_links": [
+      "adrs/ADR-0004-new-primitive-grading-platform-binding.md",
       "adrs/ADR-0003-hardness-source-consistency.md",
       "adrs/ADR-0002-revise-navigation-constraints.md",
       "adrs/ADR-0001-navigation-constraints.md"
