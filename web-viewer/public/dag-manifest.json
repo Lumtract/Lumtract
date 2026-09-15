@@ -81,11 +81,36 @@
     "cited_by": []
   },
   {
+    "path": "adrs/ADR-0005-purpose-override-path.md",
+    "layer": "Unknown",
+    "title": "ADR-0005：平台固化规则的推翻路径（目的可推翻项目级硬边界）",
+    "outbound_links": [],
+    "inbound_links": [],
+    "trace_path": [
+      "adrs/ADR-0005-purpose-override-path.md"
+    ],
+    "related_nodes": [],
+    "cited_by": []
+  },
+  {
+    "path": "adrs/ADR-0006-luminous-semantics-constraint.md",
+    "layer": "Unknown",
+    "title": "ADR-0006：新增 L-004 辉光语义约束（派生自 C-002 + P-022）",
+    "outbound_links": [],
+    "inbound_links": [],
+    "trace_path": [
+      "adrs/ADR-0006-luminous-semantics-constraint.md"
+    ],
+    "related_nodes": [],
+    "cited_by": []
+  },
+  {
     "path": "archive.md",
     "layer": "Unknown",
     "title": "水之波光 · 触境 · 实例档案",
     "outbound_links": [
-      "constraints-navigation.md"
+      "constraints-navigation.md",
+      "engineering-guide/interaction/navigation-baseline.md"
     ],
     "inbound_links": [
       "navigation.md"
@@ -144,6 +169,20 @@
     ],
     "trace_path": [
       "derivation.md"
+    ],
+    "related_nodes": [],
+    "cited_by": []
+  },
+  {
+    "path": "engineering-guide/interaction/navigation-baseline.md",
+    "layer": "Engineering",
+    "title": "Lumtract 导航基线 · 外部一致性惯例清单",
+    "outbound_links": [],
+    "inbound_links": [
+      "archive.md"
+    ],
+    "trace_path": [
+      "engineering-guide/interaction/navigation-baseline.md"
     ],
     "related_nodes": [],
     "cited_by": []
